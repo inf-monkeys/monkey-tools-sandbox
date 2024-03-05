@@ -11,4 +11,6 @@ export interface WorkflowContext {
 
 export class BaseReqDto {
   __context: WorkflowContext;
+  // credential data encrypted by publicKey
+  __encryptedCredentialData: string;
 }

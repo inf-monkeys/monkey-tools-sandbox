@@ -4,6 +4,7 @@ import { config } from './common/config';
 import {
   ApiType,
   AuthType,
+  CredentialAuthType,
   MenifestJson,
   SchemaVersion,
 } from './common/interfaces';
@@ -26,6 +27,37 @@ export class AppController {
         url: `http://127.0.0.1:${config.server.port}/openapi-json`,
       },
       contact_email: 'dev@inf-monkeys.com',
+      credentials: [
+        {
+          name: 'dysms',
+          type: CredentialAuthType.AKSK,
+          logo: 'https://static.aside.fun/upload/frame/a0QyJc.png',
+          displayName: '阿里云短信账号',
+          properties: [
+            {
+              displayName: 'accessKeyId',
+              name: 'accessKeyId',
+              type: 'string',
+              required: true,
+            },
+            {
+              displayName: 'accessKeySecret',
+              name: 'accessKeySecret',
+              type: 'string',
+              default: '',
+              required: true,
+            },
+            {
+              displayName: 'regionId',
+              name: 'regionId',
+              type: 'string',
+              default: 'cn-beijing',
+              required: true,
+            },
+          ],
+        },
+      ],
+      credentialEncryptKey: config.credentialEncrypt.publicKey,
     };
   }
 }
