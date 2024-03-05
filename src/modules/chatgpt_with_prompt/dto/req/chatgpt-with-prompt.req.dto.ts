@@ -1,7 +1,8 @@
+import { BaseReqDto } from '@/common/dto/base.dto';
 import { ApiProperty } from '@nestjs/swagger';
 import * as Joiful from 'joiful';
 
-export class ChatGptWithPromptDto {
+export class ChatGptWithPromptDto extends BaseReqDto {
   @ApiProperty({
     description: 'System Message',
     required: false,

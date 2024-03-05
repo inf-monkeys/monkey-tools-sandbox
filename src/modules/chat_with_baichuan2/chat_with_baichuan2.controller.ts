@@ -1,5 +1,6 @@
 import {
   MonkeyToolCategories,
+  MonkeyToolExtra,
   MonkeyToolIcon,
   MonkeyToolInput,
   MonkeyToolName,
@@ -38,6 +39,9 @@ export class ChatWithBaichuan2Controller {
       type: 'string',
     },
   ])
+  @MonkeyToolExtra({
+    estimateTime: 10,
+  })
   public async chatWithBaichuan2(@Body() body: ChatWithBaichuan2Dto) {
     const { text } = body;
     const result = await this.service.chatWithBaichuan2(text);

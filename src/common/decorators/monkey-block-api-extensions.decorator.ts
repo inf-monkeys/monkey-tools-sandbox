@@ -1,4 +1,4 @@
-import { BlockDefProperties } from '@inf-monkeys/vines';
+import { BlockDefProperties, BlockExtraInfo } from '@inf-monkeys/vines';
 import { ApiExtension } from '@nestjs/swagger';
 
 export function MonkeyToolName(name: string): MethodDecorator {
@@ -54,5 +54,15 @@ export function MonkeyToolOutput(
     descriptor?: PropertyDescriptor,
   ) => {
     ApiExtension('x-monkey-tool-output', output)(target, key, descriptor);
+  };
+}
+
+export function MonkeyToolExtra(extra: BlockExtraInfo): MethodDecorator {
+  return (
+    target: any,
+    key?: string | symbol,
+    descriptor?: PropertyDescriptor,
+  ) => {
+    ApiExtension('x-monkey-tool-extra', extra)(target, key, descriptor);
   };
 }

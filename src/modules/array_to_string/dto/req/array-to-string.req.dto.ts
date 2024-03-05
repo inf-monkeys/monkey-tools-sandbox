@@ -1,7 +1,8 @@
+import { BaseReqDto } from '@/common/dto/base.dto';
 import { ApiProperty } from '@nestjs/swagger';
 import * as Joiful from 'joiful';
 
-export class ArrayToStringDto {
+export class ArrayToStringDto extends BaseReqDto {
   @ApiProperty({
     description: 'Input Array',
     type: String,

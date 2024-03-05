@@ -2,20 +2,20 @@ import { BaseReqDto } from '@/common/dto/base.dto';
 import { ApiProperty } from '@nestjs/swagger';
 import * as Joiful from 'joiful';
 
-export class RunCustomCodeDto extends BaseReqDto {
+export class CollectDoWhileOutputDto extends BaseReqDto {
   @ApiProperty({
-    description: 'Source Code',
+    description: 'DoWhile Task Reference Name',
     type: String,
     required: true,
   })
   @Joiful.string().required()
-  sourceCode: string;
+  doWhileTaskReferenceName: string;
 
   @ApiProperty({
-    description: 'Function Parameters',
-    type: Object,
+    description: 'Json path expression',
+    type: String,
     required: false,
   })
-  @Joiful.object().optional()
-  parameters: { [x: string]: any };
+  @Joiful.string().optional()
+  jsonPathExpression: string;
 }

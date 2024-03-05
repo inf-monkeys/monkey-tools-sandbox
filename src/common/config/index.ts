@@ -14,10 +14,15 @@ export interface OpenAIConfig {
   apiKey: string;
 }
 
+export interface ConductorConfig {
+  baseUrl: string;
+}
+
 export interface Config {
   server: ServerConfig;
   baichuan2: Baichuan2Config;
   openai: OpenAIConfig;
+  conductor: ConductorConfig;
 }
 
 const port = readConfig('server.port', 3001);
@@ -28,4 +33,7 @@ export const config: Config = {
   },
   baichuan2: readConfig('baichuan2', {}),
   openai: readConfig('openai', {}),
+  conductor: {
+    baseUrl: readConfig('conductor.baseUrl', 'http://localhost:8080/api'),
+  },
 };

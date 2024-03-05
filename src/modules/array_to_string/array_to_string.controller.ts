@@ -1,5 +1,6 @@
 import {
   MonkeyToolCategories,
+  MonkeyToolExtra,
   MonkeyToolIcon,
   MonkeyToolInput,
   MonkeyToolName,
@@ -44,6 +45,9 @@ export class ArrayToStringController {
       type: 'string',
     },
   ])
+  @MonkeyToolExtra({
+    estimateTime: 1,
+  })
   public async arryToString(@Body() body: ArrayToStringDto) {
     const { inputData, delimiter } = body;
     const data = await this.arrayToStringService.arrayToString(

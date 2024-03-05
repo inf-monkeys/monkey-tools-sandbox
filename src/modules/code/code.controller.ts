@@ -1,5 +1,6 @@
 import {
   MonkeyToolCategories,
+  MonkeyToolExtra,
   MonkeyToolIcon,
   MonkeyToolInput,
   MonkeyToolName,
@@ -62,6 +63,9 @@ return data;`,
       type: 'string',
     },
   ])
+  @MonkeyToolExtra({
+    estimateTime: 3,
+  })
   @ApiOkResponse({ type: RunCustomCodeRespDto })
   public async runCustomCode(@Body() body: RunCustomCodeDto) {
     const { sourceCode, parameters } = body;

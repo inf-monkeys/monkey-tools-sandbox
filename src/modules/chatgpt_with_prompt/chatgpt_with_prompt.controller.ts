@@ -1,5 +1,6 @@
 import {
   MonkeyToolCategories,
+  MonkeyToolExtra,
   MonkeyToolIcon,
   MonkeyToolInput,
   MonkeyToolName,
@@ -38,6 +39,9 @@ export class ChatgptWithPromptController {
       type: 'string',
     },
   ])
+  @MonkeyToolExtra({
+    estimateTime: 10,
+  })
   public async chatgptWithPrompt(@Body() body: ChatGptWithPromptDto) {
     const result = await this.service.chatGptWithPrompt(body);
     return result;
