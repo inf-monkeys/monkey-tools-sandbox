@@ -1,5 +1,12 @@
+import {
+  MonkeyBlockCategories,
+  MonkeyBlockIcon,
+  MonkeyBlockInput,
+  MonkeyBlockName,
+  MonkeyBlockOutput,
+} from '@/common/decorators/monkey-block-api-extensions.decorator';
 import { Body, Controller, Post } from '@nestjs/common';
-import { ApiExtension, ApiOperation } from '@nestjs/swagger';
+import { ApiOperation } from '@nestjs/swagger';
 import { ArrayToStringService } from './array_to_string.service';
 import { ArrayToStringDto } from './dto/req/array-to-string.req.dto';
 
@@ -12,10 +19,10 @@ export class ArrayToStringController {
     summary: '数组转字符串',
     description: '使用分隔符将数组转换为字符串',
   })
-  @ApiExtension('x-monkey-block-name', 'array_to_string')
-  @ApiExtension('x-monkey-block-categories', ['extra', 'text'])
-  @ApiExtension('x-monkey-block-icon', 'emoji:👋:#b291f7')
-  @ApiExtension('x-monkey-block-input', [
+  @MonkeyBlockName('array_to_string')
+  @MonkeyBlockCategories(['extra', 'text'])
+  @MonkeyBlockIcon('emoji:👋:#b291f7')
+  @MonkeyBlockInput([
     {
       name: 'inputData',
       type: 'string',
@@ -30,7 +37,7 @@ export class ArrayToStringController {
       default: ',',
     },
   ])
-  @ApiExtension('x-monkey-block-output', [
+  @MonkeyBlockOutput([
     {
       name: 'data',
       displayName: '输出数据',

@@ -7,17 +7,17 @@ import {
 } from '@/common/decorators/monkey-block-api-extensions.decorator';
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
-import { ChatWithBaichuan2Service } from './chat_with_baichuan2.service';
-import { ChatWithBaichuan2Dto } from './dto/req/chat-with-baichuan2.req.dto';
+import { ChatgptWithPromptService } from './chatgpt_with_prompt.service';
+import { ChatGptWithPromptDto } from './dto/req/chatgpt-with-prompt.req.dto';
 
 @Controller('')
-export class ChatWithBaichuan2Controller {
-  constructor(private readonly service: ChatWithBaichuan2Service) {}
+export class ChatgptWithPromptController {
+  constructor(private readonly service: ChatgptWithPromptService) {}
 
-  @Post('/chat-with-baichuan2')
+  @Post('/chatgpt-with-prompt')
   @ApiOperation({
-    summary: '文本生成（Baichuan2）',
-    description: '使用 Baichuan2 生成文本',
+    summary: '文本生成（GPT）',
+    description: '使用 ChatGPT 生成文本',
   })
   @MonkeyBlockName('chat_with_baichuan2')
   @MonkeyBlockCategories(['gen-text'])
@@ -38,9 +38,8 @@ export class ChatWithBaichuan2Controller {
       type: 'string',
     },
   ])
-  public async chatWithBaichuan2(@Body() body: ChatWithBaichuan2Dto) {
-    const { text } = body;
-    const result = await this.service.chatWithBaichuan2(text);
+  public async chatgptWithPrompt(@Body() body: ChatGptWithPromptDto) {
+    const result = await this.service.chatGptWithPrompt(body);
     return result;
   }
 }
