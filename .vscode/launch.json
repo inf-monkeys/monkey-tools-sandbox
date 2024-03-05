@@ -1,0 +1,20 @@
+{
+  "configurations": [
+    {
+      "type": "node",
+      "port": 9230,
+
+      "request": "attach",
+
+      "name": "Attach by Process ID",
+
+      "processId": "${command:PickProcess}",
+
+      "skipFiles": ["<node_internals>/**"],
+
+      "protocol": "inspector",
+
+      "restart": true
+    }
+  ]
+}
