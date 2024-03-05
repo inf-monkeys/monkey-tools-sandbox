@@ -1,33 +1,33 @@
 import { BlockDefProperties } from '@inf-monkeys/vines';
 import { ApiExtension } from '@nestjs/swagger';
 
-export function MonkeyBlockName(name: string): MethodDecorator {
+export function MonkeyToolName(name: string): MethodDecorator {
   return (
     target: any,
     key?: string | symbol,
     descriptor?: PropertyDescriptor,
   ) => {
-    ApiExtension('x-monkey-block-name', name)(target, key, descriptor);
+    ApiExtension('x-monkey-tool-name', name)(target, key, descriptor);
   };
 }
 
-export function MonkeyBlockIcon(icon: string): MethodDecorator {
+export function MonkeyToolIcon(icon: string): MethodDecorator {
   return (
     target: any,
     key?: string | symbol,
     descriptor?: PropertyDescriptor,
   ) => {
-    ApiExtension('x-monkey-block-icon', icon)(target, key, descriptor);
+    ApiExtension('x-monkey-tool-icon', icon)(target, key, descriptor);
   };
 }
 
-export function MonkeyBlockCategories(categories: string[]): MethodDecorator {
+export function MonkeyToolCategories(categories: string[]): MethodDecorator {
   return (
     target: any,
     key?: string | symbol,
     descriptor?: PropertyDescriptor,
   ) => {
-    ApiExtension('x-monkey-block-categories', categories)(
+    ApiExtension('x-monkey-tool-categories', categories)(
       target,
       key,
       descriptor,
@@ -35,17 +35,17 @@ export function MonkeyBlockCategories(categories: string[]): MethodDecorator {
   };
 }
 
-export function MonkeyBlockInput(input: BlockDefProperties[]): MethodDecorator {
+export function MonkeyToolInput(input: BlockDefProperties[]): MethodDecorator {
   return (
     target: any,
     key?: string | symbol,
     descriptor?: PropertyDescriptor,
   ) => {
-    ApiExtension('x-monkey-block-input', input)(target, key, descriptor);
+    ApiExtension('x-monkey-tool-input', input)(target, key, descriptor);
   };
 }
 
-export function MonkeyBlockOutput(
+export function MonkeyToolOutput(
   output: BlockDefProperties[],
 ): MethodDecorator {
   return (
@@ -53,6 +53,6 @@ export function MonkeyBlockOutput(
     key?: string | symbol,
     descriptor?: PropertyDescriptor,
   ) => {
-    ApiExtension('x-monkey-block-output', output)(target, key, descriptor);
+    ApiExtension('x-monkey-tool-output', output)(target, key, descriptor);
   };
 }

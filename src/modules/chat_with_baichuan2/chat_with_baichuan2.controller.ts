@@ -1,9 +1,9 @@
 import {
-  MonkeyBlockCategories,
-  MonkeyBlockIcon,
-  MonkeyBlockInput,
-  MonkeyBlockName,
-  MonkeyBlockOutput,
+  MonkeyToolCategories,
+  MonkeyToolIcon,
+  MonkeyToolInput,
+  MonkeyToolName,
+  MonkeyToolOutput,
 } from '@/common/decorators/monkey-block-api-extensions.decorator';
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
@@ -19,10 +19,10 @@ export class ChatWithBaichuan2Controller {
     summary: '文本生成（Baichuan2）',
     description: '使用 Baichuan2 生成文本',
   })
-  @MonkeyBlockName('chat_with_baichuan2')
-  @MonkeyBlockCategories(['gen-text'])
-  @MonkeyBlockIcon('emoji:💬:#c15048')
-  @MonkeyBlockInput([
+  @MonkeyToolName('chat_with_baichuan2')
+  @MonkeyToolCategories(['gen-text'])
+  @MonkeyToolIcon('emoji:💬:#c15048')
+  @MonkeyToolInput([
     {
       displayName: '用户消息',
       name: 'text',
@@ -31,7 +31,7 @@ export class ChatWithBaichuan2Controller {
       required: false,
     },
   ])
-  @MonkeyBlockOutput([
+  @MonkeyToolOutput([
     {
       name: 'response',
       displayName: '回复',

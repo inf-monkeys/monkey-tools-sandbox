@@ -1,9 +1,9 @@
 import {
-  MonkeyBlockCategories,
-  MonkeyBlockIcon,
-  MonkeyBlockInput,
-  MonkeyBlockName,
-  MonkeyBlockOutput,
+  MonkeyToolCategories,
+  MonkeyToolIcon,
+  MonkeyToolInput,
+  MonkeyToolName,
+  MonkeyToolOutput,
 } from '@/common/decorators/monkey-block-api-extensions.decorator';
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
@@ -20,10 +20,10 @@ export class CodeController {
     summary: '自定义代码',
     description: '在沙箱中执行 JavaScript 自定义代码',
   })
-  @MonkeyBlockName('code')
-  @MonkeyBlockCategories(['extra'])
-  @MonkeyBlockIcon('emoji:👋:#b291f7')
-  @MonkeyBlockInput([
+  @MonkeyToolName('code')
+  @MonkeyToolCategories(['extra'])
+  @MonkeyToolIcon('emoji:👋:#b291f7')
+  @MonkeyToolInput([
     {
       name: 'parameters',
       displayName: '执行参数',
@@ -55,7 +55,7 @@ const { data } = await axios.get($.url);
 return data;`,
     },
   ])
-  @MonkeyBlockOutput([
+  @MonkeyToolOutput([
     {
       name: 'data',
       displayName: '返回数据',
