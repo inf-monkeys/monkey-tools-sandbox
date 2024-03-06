@@ -1,5 +1,4 @@
 import { config } from '@/common/config';
-import { WorkflowContext } from '@/common/dto/base.dto';
 import { ConductorClient } from '@io-orkes/conductor-javascript';
 import { Injectable } from '@nestjs/common';
 import * as jsonpath from 'jsonpath';
@@ -43,10 +42,8 @@ export class CollectDowhileOutputService {
   public async collectDowhileOutput(
     doWhileTaskReferenceName: string,
     jsonPathExpression: string,
-    context: WorkflowContext,
+    workflowInstanceId: string,
   ): Promise<{ [x: string]: any }> {
-    const { workflowInstanceId } = context;
-
     let result: { [x: string]: any[] } | any = {};
     const collectData = (taskReferenceName: string, data: any) => {
       if (!result[taskReferenceName]) {

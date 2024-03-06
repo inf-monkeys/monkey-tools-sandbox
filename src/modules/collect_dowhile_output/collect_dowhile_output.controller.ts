@@ -6,7 +6,8 @@ import {
   MonkeyToolName,
   MonkeyToolOutput,
 } from '@/common/decorators/monkey-block-api-extensions.decorator';
-import { Body, Controller, Post } from '@nestjs/common';
+import { IRequest } from '@/common/typings/request';
+import { Body, Controller, Post, Req } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { CollectDowhileOutputService } from './collect_dowhile_output.service';
 import { CollectDoWhileOutputDto } from './dto/req/collect-dowhile-output.req.dto';
@@ -135,12 +136,15 @@ JSONPath                      | 描述
   @MonkeyToolExtra({
     estimateTime: 3,
   })
-  public async collectDowhileOutput(@Body() body: CollectDoWhileOutputDto) {
-    const { doWhileTaskReferenceName, jsonPathExpression, __context } = body;
+  public async collectDowhileOutput(
+    @Req() req: IRequest,
+    @Body() body: CollectDoWhileOutputDto,
+  ) {
+    const { doWhileTaskReferenceName, jsonPathExpression } = body;
     const result = await this.service.collectDowhileOutput(
       doWhileTaskReferenceName,
       jsonPathExpression,
-      __context,
+      req.monkeyWorkflowInstanceId,
     );
     return result;
   }
