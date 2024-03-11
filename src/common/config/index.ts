@@ -23,12 +23,28 @@ export interface CredentialEncryptConfig {
   privateKey: string;
 }
 
+export interface ComfyUICofig {
+  baseUrl: string;
+}
+
+export interface S3Config {
+  accessKeyId: string;
+  secretAccessKey: string;
+  endpoint: string;
+  region: string;
+  modelBucketName: string;
+  assetsBucketName: string;
+  assetsBucketPublicUrl: string;
+}
+
 export interface Config {
   server: ServerConfig;
   baichuan2: Baichuan2Config;
   openai: OpenAIConfig;
   conductor: ConductorConfig;
   credentialEncrypt: CredentialEncryptConfig;
+  comfyui: ComfyUICofig;
+  s3: S3Config;
 }
 
 const port = readConfig('server.port', 3001);
@@ -43,4 +59,6 @@ export const config: Config = {
     baseUrl: readConfig('conductor.baseUrl', 'http://localhost:8080/api'),
   },
   credentialEncrypt: readConfig('credentialEncrypt', {}),
+  comfyui: readConfig('comfyui', {}),
+  s3: readConfig('s3', {}),
 };

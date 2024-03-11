@@ -144,7 +144,7 @@ JSONPath                      | 描述
     const result = await this.service.collectDowhileOutput(
       doWhileTaskReferenceName,
       jsonPathExpression,
-      req.monkeyWorkflowInstanceId,
+      req.context.workflowInstanceId,
     );
     return result;
   }

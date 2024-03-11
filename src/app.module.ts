@@ -7,6 +7,7 @@ import { ChatWithBaichuan2Module } from './modules/chat_with_baichuan2/chat_with
 import { ChatgptWithPromptModule } from './modules/chatgpt_with_prompt/chatgpt_with_prompt.module';
 import { CodeModule } from './modules/code/code.module';
 import { CollectDowhileOutputModule } from './modules/collect_dowhile_output/collect_dowhile_output.module';
+import { ComfyuiModule } from './modules/comfyui/comfyui.module';
 import { DysmsModule } from './modules/dysms/dysms.module';
 
 @Module({
@@ -17,6 +18,7 @@ import { DysmsModule } from './modules/dysms/dysms.module';
     ChatgptWithPromptModule,
     CollectDowhileOutputModule,
     DysmsModule,
+    ComfyuiModule,
   ],
   controllers: [AppController],
   providers: [AppService],

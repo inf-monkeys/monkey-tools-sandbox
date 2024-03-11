@@ -15,6 +15,34 @@ export function MonkeyToolName(name: string): MethodDecorator {
   };
 }
 
+export function MonkeyToolDisplayName(displayName: string): MethodDecorator {
+  return (
+    target: any,
+    key?: string | symbol,
+    descriptor?: PropertyDescriptor,
+  ) => {
+    ApiExtension('x-monkey-tool-display-name', displayName)(
+      target,
+      key,
+      descriptor,
+    );
+  };
+}
+
+export function MonkeyToolDescription(description: string): MethodDecorator {
+  return (
+    target: any,
+    key?: string | symbol,
+    descriptor?: PropertyDescriptor,
+  ) => {
+    ApiExtension('x-monkey-tool-description', description)(
+      target,
+      key,
+      descriptor,
+    );
+  };
+}
+
 export function MonkeyToolIcon(icon: string): MethodDecorator {
   return (
     target: any,
