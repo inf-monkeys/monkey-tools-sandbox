@@ -1,20 +1,12 @@
 {
+  "version": "0.2.0",
   "configurations": [
     {
       "type": "node",
-      "port": 9230,
-
       "request": "attach",
-
-      "name": "Attach by Process ID",
-
-      "processId": "${command:PickProcess}",
-
-      "skipFiles": ["<node_internals>/**"],
-
-      "protocol": "inspector",
-
-      "restart": true
+      "name": "Attach NestJS WS",
+      "port": 9230,
+      "restart": true,
     }
   ]
 }
