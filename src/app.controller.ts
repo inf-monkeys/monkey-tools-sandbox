@@ -24,7 +24,7 @@ export class AppController {
       },
       api: {
         type: ApiType.openapi,
-        url: `http://127.0.0.1:${config.server.port}/openapi-json`,
+        url: `/openapi-json`,
       },
       contact_email: 'dev@inf-monkeys.com',
       credentials: [
