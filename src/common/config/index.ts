@@ -14,10 +14,6 @@ export interface OpenAIConfig {
   apiKey: string;
 }
 
-export interface ConductorConfig {
-  baseUrl: string;
-}
-
 export interface CredentialEncryptConfig {
   publicKey: string;
   privateKey: string;
@@ -41,7 +37,6 @@ export interface Config {
   server: ServerConfig;
   baichuan2: Baichuan2Config;
   openai: OpenAIConfig;
-  conductor: ConductorConfig;
   credentialEncrypt: CredentialEncryptConfig;
   comfyui: ComfyUICofig;
   s3: S3Config;
@@ -55,9 +50,6 @@ export const config: Config = {
   },
   baichuan2: readConfig('baichuan2', {}),
   openai: readConfig('openai', {}),
-  conductor: {
-    baseUrl: readConfig('conductor.baseUrl', 'http://localhost:8080/api'),
-  },
   credentialEncrypt: readConfig('credentialEncrypt', {}),
   comfyui: readConfig('comfyui', {}),
   s3: readConfig('s3', {}),
