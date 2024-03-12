@@ -10,7 +10,9 @@ import { config } from '../config';
 
 export class S3Helpers {
   client: S3Client;
+
   constructor() {
+    this.checkS3Config();
     this.client = new S3Client({
       credentials: {
         accessKeyId: config.s3.accessKeyId,
@@ -19,6 +21,19 @@ export class S3Helpers {
       endpoint: config.s3.endpoint,
       region: config.s3.region,
     });
+  }
+
+  private checkS3Config() {
+    if (
+      config.s3.accessKeyId &&
+      config.s3.secretAccessKey &&
+      config.s3.region &&
+      config.s3.endpoint &&
+      config.s3.modelBucketName
+    ) {
+      return;
+    }
+    throw new Error('未配置 s3 存储，请联系管理员');
   }
 
   public async existsModel(fileKey: string) {

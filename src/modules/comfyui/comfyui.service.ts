@@ -56,27 +56,24 @@ export class ComfyuiService {
     const imagePath = uuid.v4() + '.png';
 
     const s3Helpers = new S3Helpers();
-    let ext = 'ckpt';
-    if (
-      !(await s3Helpers.existsModel(
-        `Stable-diffusion/${appId}/${modelId}.${ext}`,
-      ))
-    ) {
-      ext = 'safetensors';
-    } else if (
-      !(await s3Helpers.existsModel(
-        `Stable-diffusion/${appId}/${modelId}.${ext}`,
-      ))
-    ) {
+    let modelOssPath: string;
+    const ckptModel = `Stable-diffusion/${appId}/${modelId}.ckpt`;
+    const safetensorsModel = `Stable-diffusion/${appId}/${modelId}.safetensors`;
+    if (await s3Helpers.existsModel(ckptModel)) {
+      modelOssPath = ckptModel;
+    } else if (await s3Helpers.existsModel(safetensorsModel)) {
+      modelOssPath = safetensorsModel;
+    } else {
       throw new Error('模型不存在');
     }
 
     // TODO: fix me, change Stable-diffusion path
     const modelUrl = await s3Helpers.getFileSignedUrl(
-      `Stable-diffusion/${appId}/${modelId}.${ext}`,
+      modelOssPath,
       config.s3.modelBucketName,
     );
-    const modelName = `${modelId}.${ext}`;
+    const modelName =
+      modelOssPath.split('/')[modelOssPath.split('/').length - 1];
     const requirements: ComfyuiRequirement[] = [
       {
         url: modelUrl,
@@ -130,27 +127,24 @@ export class ComfyuiService {
       batchCount,
     } = input;
     const s3Helpers = new S3Helpers();
-    let ext = 'ckpt';
-    if (
-      !(await s3Helpers.existsModel(
-        `Stable-diffusion/${appId}/${modelId}.${ext}`,
-      ))
-    ) {
-      ext = 'safetensors';
-    } else if (
-      !(await s3Helpers.existsModel(
-        `Stable-diffusion/${appId}/${modelId}.${ext}`,
-      ))
-    ) {
+    let modelOssPath: string;
+    const ckptModel = `Stable-diffusion/${appId}/${modelId}.ckpt`;
+    const safetensorsModel = `Stable-diffusion/${appId}/${modelId}.safetensors`;
+    if (await s3Helpers.existsModel(ckptModel)) {
+      modelOssPath = ckptModel;
+    } else if (await s3Helpers.existsModel(safetensorsModel)) {
+      modelOssPath = safetensorsModel;
+    } else {
       throw new Error('模型不存在');
     }
 
     // TODO: fix me, change Stable-diffusion path
     const modelUrl = await s3Helpers.getFileSignedUrl(
-      `Stable-diffusion/${appId}/${modelId}.${ext}`,
+      modelOssPath,
       config.s3.modelBucketName,
     );
-    const modelName = `${modelId}.${ext}`;
+    const modelName =
+      modelOssPath.split('/')[modelOssPath.split('/').length - 1];
     const requirements: ComfyuiRequirement[] = [
       {
         url: modelUrl,
@@ -161,7 +155,7 @@ export class ComfyuiService {
 
     // Run ComfyUI
     const { data } = await axios.post(
-      '/monkeys/image-to-image',
+      '/monkeys/text-to-image',
       {
         modelName,
         prompt,

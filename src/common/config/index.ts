@@ -51,6 +51,8 @@ export const config: Config = {
   baichuan2: readConfig('baichuan2', {}),
   openai: readConfig('openai', {}),
   credentialEncrypt: readConfig('credentialEncrypt', {}),
-  comfyui: readConfig('comfyui', {}),
+  comfyui: {
+    baseUrl: readConfig('comfyui.baseUrl', 'http://127.0.0.1:8188'),
+  },
   s3: readConfig('s3', {}),
 };
