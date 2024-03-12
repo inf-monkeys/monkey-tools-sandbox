@@ -24,7 +24,7 @@ export class ExceptionsFilter implements ExceptionFilter {
           ? JSON.stringify(exception.response?.data)
           : exception.message
         : (exception as Error).message;
-    response.status(HttpStatus.OK).json({
+    response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
       code: status,
       message,
     });
