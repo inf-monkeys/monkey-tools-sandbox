@@ -1,8 +1,11 @@
 import { config } from '@/common/config';
+import { logger } from '@/common/logger';
 import { S3Helpers } from '@/common/s3';
 import { ReqContext } from '@/common/typings/request';
+import { sleep } from '@/common/utils';
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
+import url from 'url';
 import * as uuid from 'uuid';
 import {
   ComfyuiImageToImageWorkerInput,
@@ -27,6 +30,9 @@ export class ComfyuiService {
       });
       status = resData.status;
       result = resData.data;
+      logger.info(
+        `Check comfyui result: ${url.resolve(this.baseUrl, resultUrl)}, status=${status}`,
+      );
       if (status === 'COMPLETED') {
         break;
       } else if (status === 'FAILED') {
@@ -36,6 +42,7 @@ export class ComfyuiService {
       if (+new Date() - start > timeoutSecs * 1000) {
         throw new Error(`Run Comfyui Timeout for ${timeoutSecs} seconds.`);
       }
+      await sleep(1000);
     }
     return result;
   }
