@@ -34,6 +34,16 @@ export class ComfyuiController {
   @MonkeyToolIcon('emoji:📷:#98ae36')
   @MonkeyToolInput([
     {
+      displayName: 'ComfyUI Server',
+      name: 'comfyuiServerBaseUrl',
+      type: 'string',
+      typeOptions: {
+        assetType: 'comfyui-server',
+      },
+      default: 'default',
+      required: true,
+    },
+    {
       displayName: '模型 ID',
       name: 'modelId',
       type: 'string',
@@ -123,8 +133,10 @@ export class ComfyuiController {
       samplingStep,
       cfgScale,
       initImage,
+      comfyuiServerBaseUrl,
     } = body;
     const result = await this.service.imageToImage(
+      comfyuiServerBaseUrl,
       {
         modelId,
         prompt,
@@ -149,6 +161,16 @@ export class ComfyuiController {
   @MonkeyToolCategories(['gen-image'])
   @MonkeyToolIcon('emoji:📷:#98ae36')
   @MonkeyToolInput([
+    {
+      displayName: 'ComfyUI Server',
+      name: 'comfyuiServerBaseUrl',
+      type: 'string',
+      typeOptions: {
+        assetType: 'comfyui-server',
+      },
+      default: 'default',
+      required: true,
+    },
     {
       displayName: '模型 ID',
       name: 'modelId',
@@ -252,8 +274,10 @@ export class ComfyuiController {
       width,
       height,
       batchCount,
+      comfyuiServerBaseUrl,
     } = body;
     const result = await this.service.textToImage(
+      comfyuiServerBaseUrl,
       {
         modelId,
         prompt,

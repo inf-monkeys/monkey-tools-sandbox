@@ -15,23 +15,24 @@ import {
 
 @Injectable()
 export class ComfyuiService {
-  private baseUrl: string;
-  constructor() {
-    this.baseUrl = config.comfyui.baseUrl;
-  }
+  constructor() {}
 
-  private async waitForResult(resultUrl: string, timeoutSecs: number) {
+  private async waitForResult(
+    baseUrl: string,
+    resultUrl: string,
+    timeoutSecs: number,
+  ) {
     let status: string;
     let result: any;
     const start = +new Date();
     while (true) {
       const { data: resData } = await axios.get(resultUrl, {
-        baseURL: this.baseUrl,
+        baseURL: baseUrl,
       });
       status = resData.status;
       result = resData.data;
       logger.info(
-        `Check comfyui result: ${url.resolve(this.baseUrl, resultUrl)}, status=${status}`,
+        `Check comfyui result: ${url.resolve(baseUrl, resultUrl)}, status=${status}`,
       );
       if (status === 'COMPLETED') {
         break;
@@ -48,6 +49,7 @@ export class ComfyuiService {
   }
 
   public async imageToImage(
+    baseUrl: string,
     input: ComfyuiImageToImageWorkerInput,
     context: ReqContext,
   ) {
@@ -107,18 +109,19 @@ export class ComfyuiService {
         requirements,
       },
       {
-        baseURL: this.baseUrl,
+        baseURL: baseUrl,
       },
     );
     const { __monkeyResultUrl } = data;
     if (!__monkeyResultUrl) {
       throw new Error('Not receive __monkeyResultUrl');
     }
-    const result = await this.waitForResult(__monkeyResultUrl, 3600);
+    const result = await this.waitForResult(baseUrl, __monkeyResultUrl, 3600);
     return result;
   }
 
   public async textToImage(
+    baseUrl: string,
     input: ComfyuiTextToImageWorkerInput,
     context: ReqContext,
   ) {
@@ -175,14 +178,14 @@ export class ComfyuiService {
         requirements,
       },
       {
-        baseURL: this.baseUrl,
+        baseURL: baseUrl,
       },
     );
     const { __monkeyResultUrl } = data;
     if (!__monkeyResultUrl) {
       throw new Error('Not receive __monkeyResultUrl');
     }
-    const result = await this.waitForResult(__monkeyResultUrl, 3600);
+    const result = await this.waitForResult(baseUrl, __monkeyResultUrl, 3600);
     return result;
   }
 }

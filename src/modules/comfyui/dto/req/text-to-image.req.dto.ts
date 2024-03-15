@@ -7,6 +7,13 @@ export class ComfyuiTextToImageDto {
     required: true,
   })
   @Joiful.string().required()
+  comfyuiServerBaseUrl: string;
+
+  @ApiProperty({
+    type: String,
+    required: true,
+  })
+  @Joiful.string().required()
   modelId: string;
 
   @ApiProperty({

@@ -21,10 +21,6 @@ export interface CredentialEncryptConfig {
   privateKey: string;
 }
 
-export interface ComfyUICofig {
-  baseUrl: string;
-}
-
 export interface S3Config {
   accessKeyId: string;
   secretAccessKey: string;
@@ -40,7 +36,6 @@ export interface Config {
   baichuan2: Baichuan2Config;
   openai: OpenAIConfig;
   credentialEncrypt: CredentialEncryptConfig;
-  comfyui: ComfyUICofig;
   s3: S3Config;
 }
 
@@ -60,9 +55,6 @@ export const config: Config = {
   baichuan2: readConfig('baichuan2', {}),
   openai: readConfig('openai', {}),
   credentialEncrypt: readConfig('credentialEncrypt', {}),
-  comfyui: {
-    baseUrl: readConfig('comfyui.baseUrl', 'http://127.0.0.1:8188'),
-  },
   s3: readConfig('s3', {}),
 };
 

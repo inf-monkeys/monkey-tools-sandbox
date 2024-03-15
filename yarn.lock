@@ -1132,10 +1132,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-2.0.2.tgz#d9fae00a2d5cb40f92cfe64b47ad749fbc38f917"
   integrity sha512-6EwiSjwWYP7pTckG6I5eyFANjPhmPjUX9JRLUSfNPC7FX7zK9gyZAfUEaECL6ALTpGX5AjnBq3C9XmVWPitNpw==
 
-"@inf-monkeys/vines@^0.0.62":
-  version "0.0.62"
-  resolved "https://registry.yarnpkg.com/@inf-monkeys/vines/-/vines-0.0.62.tgz#21cb0eb9b474b68818c8f3247e2ab3c47f1d087d"
-  integrity sha512-WxGexfLvwgLTuvb7k0bABfRAay5UZ9iKw2mNA9LF8ogL5vEWJVj3PeCs0aZ73PadsG2pw65sIhbcLs2fz26YFQ==
+"@inf-monkeys/vines@^0.0.65":
+  version "0.0.65"
+  resolved "https://registry.yarnpkg.com/@inf-monkeys/vines/-/vines-0.0.65.tgz#71187de8b979d1ce7ce661a515588098d4cc48f3"
+  integrity sha512-ADaxeHyJe+62rMBNkDh3TXRIDLuouSnDhPDXxU0s2xyAxfB8JxNsDMG+jVFUmhPaLvxxNQUEH75C75Mp01sIgg==
   dependencies:
     "@io-orkes/conductor-javascript" "^2.0.0"
     "@types/axios" "^0.14.0"
