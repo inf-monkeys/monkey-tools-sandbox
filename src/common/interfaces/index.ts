@@ -2,6 +2,7 @@ import { BlockDefProperties } from '@inf-monkeys/vines';
 
 export enum AuthType {
   none = 'none',
+  service_http = 'service_http',
 }
 
 export enum ApiType {
@@ -25,12 +26,16 @@ export interface CredentialDefinition {
   type: CredentialAuthType;
 }
 
+export interface AuthConfig {
+  type: AuthType;
+  authorization_type?: 'bearer';
+  verification_tokens?: { [x: string]: string };
+}
+
 export interface MenifestJson {
   schema_version: SchemaVersion;
   namespace: string;
-  auth: {
-    type: AuthType;
-  };
+  auth: AuthConfig;
   api: {
     type: ApiType;
     url: string;

@@ -6,12 +6,14 @@ import {
   MonkeyToolName,
   MonkeyToolOutput,
 } from '@/common/decorators/monkey-block-api-extensions.decorator';
-import { Body, Controller, Post } from '@nestjs/common';
+import { AuthGuard } from '@/common/guards/auth.guard';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { ArrayToStringService } from './array_to_string.service';
 import { ArrayToStringDto } from './dto/req/array-to-string.req.dto';
 
 @Controller('')
+@UseGuards(new AuthGuard())
 export class ArrayToStringController {
   constructor(private readonly arrayToStringService: ArrayToStringService) {}
 

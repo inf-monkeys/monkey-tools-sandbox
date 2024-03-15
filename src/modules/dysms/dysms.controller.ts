@@ -7,12 +7,14 @@ import {
   MonkeyToolName,
   MonkeyToolOutput,
 } from '@/common/decorators/monkey-block-api-extensions.decorator';
-import { Body, Controller, Post } from '@nestjs/common';
+import { AuthGuard } from '@/common/guards/auth.guard';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { SendDysmsReqDto } from './dto/req/send-dysms.req.dto';
 import { DysmsService } from './dysms.service';
 
 @Controller('')
+@UseGuards(new AuthGuard())
 export class DysmsController {
   constructor(private readonly service: DysmsService) {}
 

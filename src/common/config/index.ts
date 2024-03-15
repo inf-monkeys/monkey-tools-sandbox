@@ -1,7 +1,9 @@
+import { AuthConfig, AuthType } from '../interfaces';
 import { readConfig } from './readYaml';
 
 export interface ServerConfig {
   port: number;
+  auth: AuthConfig;
 }
 
 export interface Baichuan2Config {
@@ -47,6 +49,13 @@ const port = readConfig('server.port', 3001);
 export const config: Config = {
   server: {
     port,
+    auth: {
+      type: readConfig('server.auth.type', AuthType.none),
+      authorization_type: 'bearer',
+      verification_tokens: {
+        monkeys: readConfig('server.auth.bearerToken'),
+      },
+    },
   },
   baichuan2: readConfig('baichuan2', {}),
   openai: readConfig('openai', {}),
@@ -56,3 +65,15 @@ export const config: Config = {
   },
   s3: readConfig('s3', {}),
 };
+
+const validateConfig = () => {
+  if (config.server.auth.type === AuthType.service_http) {
+    if (!config.server.auth.verification_tokens['monkeys']) {
+      throw new Error(
+        'Invalid Config: auth.bearerToken must not empty when auth.type is service_http',
+      );
+    }
+  }
+};
+
+validateConfig();

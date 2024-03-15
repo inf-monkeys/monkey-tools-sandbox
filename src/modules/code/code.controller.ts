@@ -6,13 +6,15 @@ import {
   MonkeyToolName,
   MonkeyToolOutput,
 } from '@/common/decorators/monkey-block-api-extensions.decorator';
-import { Body, Controller, Post } from '@nestjs/common';
+import { AuthGuard } from '@/common/guards/auth.guard';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 import { CodeService } from './code.service';
 import { RunCustomCodeDto } from './dto/req/run-custom-code.req.dto';
 import { RunCustomCodeRespDto } from './dto/res/run-custom-code.resp.dto';
 
 @Controller('')
+@UseGuards(new AuthGuard())
 export class CodeController {
   constructor(private readonly codeService: CodeService) {}
 

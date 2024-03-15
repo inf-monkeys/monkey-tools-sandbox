@@ -3,7 +3,6 @@ import { ApiExcludeEndpoint } from '@nestjs/swagger';
 import { config } from './common/config';
 import {
   ApiType,
-  AuthType,
   CredentialAuthType,
   MenifestJson,
   SchemaVersion,
@@ -19,9 +18,7 @@ export class AppController {
     return {
       schema_version: SchemaVersion.v1,
       namespace: 'monkeys_tools_nodejs',
-      auth: {
-        type: AuthType.none,
-      },
+      auth: config.server.auth,
       api: {
         type: ApiType.openapi,
         url: `/openapi-json`,

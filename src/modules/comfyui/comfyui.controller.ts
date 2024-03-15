@@ -8,8 +8,9 @@ import {
   MonkeyToolName,
   MonkeyToolOutput,
 } from '@/common/decorators/monkey-block-api-extensions.decorator';
+import { AuthGuard } from '@/common/guards/auth.guard';
 import { IRequest } from '@/common/typings/request';
-import { Body, Controller, Post, Req } from '@nestjs/common';
+import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 import { RunCustomCodeRespDto } from '../code/dto/res/run-custom-code.resp.dto';
 import { ComfyuiService } from './comfyui.service';
@@ -17,6 +18,7 @@ import { ComfyuiImageToImageDto } from './dto/req/image-to-image.req.dto';
 import { ComfyuiTextToImageDto } from './dto/req/text-to-image.req.dto';
 
 @Controller('/comfyui')
+@UseGuards(new AuthGuard())
 export class ComfyuiController {
   constructor(private readonly service: ComfyuiService) {}
 

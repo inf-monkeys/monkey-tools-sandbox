@@ -6,12 +6,14 @@ import {
   MonkeyToolName,
   MonkeyToolOutput,
 } from '@/common/decorators/monkey-block-api-extensions.decorator';
-import { Body, Controller, Post } from '@nestjs/common';
+import { AuthGuard } from '@/common/guards/auth.guard';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { ChatgptWithPromptService } from './chatgpt_with_prompt.service';
 import { ChatGptWithPromptDto } from './dto/req/chatgpt-with-prompt.req.dto';
 
 @Controller('')
+@UseGuards(new AuthGuard())
 export class ChatgptWithPromptController {
   constructor(private readonly service: ChatgptWithPromptService) {}
 
