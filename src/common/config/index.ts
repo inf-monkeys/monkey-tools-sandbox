@@ -61,7 +61,9 @@ export const config: Config = {
   openai: readConfig('openai', {}),
   credentialEncrypt: readConfig('credentialEncrypt', {}),
   s3: readConfig('s3', {}),
-  sandbox: readConfig('sandbox', {}),
+  sandbox: readConfig('sandbox', {
+    pistonApiUrl: 'https://emkc.org',
+  }),
 };
 
 const validateConfig = () => {
