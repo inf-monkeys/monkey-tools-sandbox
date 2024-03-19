@@ -5446,6 +5446,11 @@ pirates@^4.0.4:
   resolved "https://registry.yarnpkg.com/pirates/-/pirates-4.0.6.tgz#3018ae32ecfcff6c29ba2267cbf21166ac1f36b9"
   integrity sha512-saLsH7WeYYPiD25LDuLRRY/i+6HaPYr6G1OUlN39otzkSTxKnubR9RTxS3/Kk50s1g2JTgFwWQDQyplC5/SHZg==
 
+piston-api-client@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.npmmirror.com/piston-api-client/-/piston-api-client-2.0.1.tgz#8e62f546cd583107f46b97b710e1757ab56184ac"
+  integrity sha512-vUOvdYHCHl7CFVhqEBMaZri0n5kJnveryr7A4ma7l72J3UHBjl/SYrgOSXUIaUkuLS/4sySr8K/jD7f/Ieuh1g==
+
 pkg-dir@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/pkg-dir/-/pkg-dir-4.2.0.tgz#f099133df7ede422e81d1d8448270eeb3e4261f3"

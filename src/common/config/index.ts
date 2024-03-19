@@ -31,12 +31,17 @@ export interface S3Config {
   assetsBucketPublicUrl: string;
 }
 
+export interface SandboxConfig {
+  pistonApiUrl: string;
+}
+
 export interface Config {
   server: ServerConfig;
   baichuan2: Baichuan2Config;
   openai: OpenAIConfig;
   credentialEncrypt: CredentialEncryptConfig;
   s3: S3Config;
+  sandbox: SandboxConfig;
 }
 
 const port = readConfig('server.port', 3001);
@@ -56,6 +61,7 @@ export const config: Config = {
   openai: readConfig('openai', {}),
   credentialEncrypt: readConfig('credentialEncrypt', {}),
   s3: readConfig('s3', {}),
+  sandbox: readConfig('sandbox', {}),
 };
 
 const validateConfig = () => {

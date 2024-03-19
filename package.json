@@ -35,6 +35,7 @@
     "joiful": "^3.0.2",
     "log4js": "^6.9.1",
     "openai": "^4.28.4",
+    "piston-api-client": "^2.0.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
     "safeify": "^5.0.6",
