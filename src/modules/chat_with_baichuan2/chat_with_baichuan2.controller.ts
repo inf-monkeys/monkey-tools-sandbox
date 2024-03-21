@@ -8,12 +8,13 @@ import {
 } from '@/common/decorators/monkey-block-api-extensions.decorator';
 import { AuthGuard } from '@/common/guards/auth.guard';
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ChatWithBaichuan2Service } from './chat_with_baichuan2.service';
 import { ChatWithBaichuan2Dto } from './dto/req/chat-with-baichuan2.req.dto';
 
 @Controller('')
 @UseGuards(new AuthGuard())
+@ApiTags('文本生成')
 export class ChatWithBaichuan2Controller {
   constructor(private readonly service: ChatWithBaichuan2Service) {}
 

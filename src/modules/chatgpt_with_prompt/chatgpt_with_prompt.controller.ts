@@ -8,12 +8,13 @@ import {
 } from '@/common/decorators/monkey-block-api-extensions.decorator';
 import { AuthGuard } from '@/common/guards/auth.guard';
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ChatgptWithPromptService } from './chatgpt_with_prompt.service';
 import { ChatGptWithPromptDto } from './dto/req/chatgpt-with-prompt.req.dto';
 
 @Controller('')
 @UseGuards(new AuthGuard())
+@ApiTags('文本生成')
 export class ChatgptWithPromptController {
   constructor(private readonly service: ChatgptWithPromptService) {}
 

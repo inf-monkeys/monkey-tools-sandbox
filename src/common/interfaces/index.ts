@@ -34,6 +34,7 @@ export interface AuthConfig {
 
 export interface MenifestJson {
   schema_version: SchemaVersion;
+  display_name: string;
   namespace: string;
   auth: AuthConfig;
   api: {

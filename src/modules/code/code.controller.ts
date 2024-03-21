@@ -8,12 +8,13 @@ import {
 } from '@/common/decorators/monkey-block-api-extensions.decorator';
 import { AuthGuard } from '@/common/guards/auth.guard';
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
-import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
+import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CodeService } from './code.service';
 import { RunCustomCodeDto } from './dto/req/run-custom-code.req.dto';
 import { RunCustomCodeRespDto } from './dto/res/run-custom-code.resp.dto';
 
 @Controller('')
+@ApiTags('扩展能力')
 @UseGuards(new AuthGuard())
 export class CodeController {
   constructor(private readonly codeService: CodeService) {}

@@ -11,10 +11,7 @@ export const setupSwagger = (app: INestApplication) => {
     .setTitle('Simple Calc')
     .setDescription('A simple calculation app')
     .setVersion('1.0')
-    .addServer(
-      `http://localhost:${config.server.port}`,
-      'Example Calc Service API SERVER',
-    );
+    .addServer(`http://localhost:${config.server.port}`, 'Monkey tools ');
   const document = SwaggerModule.createDocument(app, builder.build(), {
     include: [AppModule],
     deepScanRoutes: true,
