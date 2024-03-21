@@ -18,7 +18,7 @@ export class AppController {
     return {
       schema_version: SchemaVersion.v1,
       display_name: '基础工具',
-      namespace: 'monkey_tools_nodejs',
+      namespace: 'monkey_tools_common',
       auth: config.server.auth,
       api: {
         type: ApiType.openapi,
