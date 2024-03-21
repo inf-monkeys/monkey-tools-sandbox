@@ -5,11 +5,11 @@ import * as yaml from 'yaml';
 
 // 解析配置文件
 let rawConfigs = [];
-if (process.env.MONKEY_WORKER_NODEJS_CONFIG_FILE) {
-  rawConfigs = [path.resolve(process.env.MONKEY_WORKER_NODEJS_CONFIG_FILE)];
+if (process.env.MONKEY_TOOLS_COMMON_CONFIG_FILE) {
+  rawConfigs = [path.resolve(process.env.MONKEY_TOOLS_COMMON_CONFIG_FILE)];
 } else {
   rawConfigs = [
-    path.resolve('/etc/monkeys/config.yaml'),
+    path.resolve('/etc/monkey-tools-common/config.yaml'),
     path.resolve('./config.yaml'),
   ];
 }
