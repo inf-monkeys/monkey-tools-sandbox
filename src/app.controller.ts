@@ -17,7 +17,7 @@ export class AppController {
   public getManifestJson(): MenifestJson {
     return {
       schema_version: SchemaVersion.v1,
-      display_name: '内置工具',
+      display_name: '基础工具',
       namespace: 'monkey_tools_nodejs',
       auth: config.server.auth,
       api: {
