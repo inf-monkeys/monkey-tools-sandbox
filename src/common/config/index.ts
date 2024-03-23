@@ -35,6 +35,10 @@ export interface SandboxConfig {
   pistonApiUrl: string;
 }
 
+export interface GoApiConfig {
+  apikey: string;
+}
+
 export interface Config {
   server: ServerConfig;
   baichuan2: Baichuan2Config;
@@ -42,6 +46,7 @@ export interface Config {
   credentialEncrypt: CredentialEncryptConfig;
   s3: S3Config;
   sandbox: SandboxConfig;
+  goapi: GoApiConfig;
 }
 
 const port = readConfig('server.port', 3001);
@@ -64,6 +69,9 @@ export const config: Config = {
   sandbox: readConfig('sandbox', {
     pistonApiUrl: 'https://emkc.org',
   }),
+  goapi: {
+    apikey: readConfig('goapi.apikey', ''),
+  },
 };
 
 const validateConfig = () => {

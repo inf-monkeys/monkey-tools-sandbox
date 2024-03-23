@@ -7,6 +7,7 @@ import { ChatWithBaichuan2Module } from './modules/chat_with_baichuan2/chat_with
 import { ChatgptWithPromptModule } from './modules/chatgpt_with_prompt/chatgpt_with_prompt.module';
 import { CodeModule } from './modules/code/code.module';
 import { DysmsModule } from './modules/dysms/dysms.module';
+import { MidjourneyModule } from './modules/midjourney/midjourney.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { DysmsModule } from './modules/dysms/dysms.module';
     ChatWithBaichuan2Module,
     ChatgptWithPromptModule,
     DysmsModule,
+    MidjourneyModule,
   ],
   controllers: [AppController],
   providers: [AppService],
