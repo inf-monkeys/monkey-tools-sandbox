@@ -1,6 +1,19 @@
 # Base image
 FROM node:18-alpine
 
+RUN apk update && \
+    apk add --no-cache \
+    bash \
+    curl \
+    wget \
+    python3 \
+    build-base \
+    g++ \
+    cairo-dev \
+    jpeg-dev \
+    pango-dev \
+    giflib-dev
+
 # Create app directory
 WORKDIR /usr/src/app
 
