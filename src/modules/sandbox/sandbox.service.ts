@@ -83,6 +83,10 @@ export class SandboxService {
     if (!apiServer) {
       throw new Error('SandBox piston apiServer is not configured');
     }
+
+    if (!config.redis.url) {
+      throw new Error('Invalid Config: redis.url must not empty');
+    }
     const client = new PistonClient({ server: apiServer });
     return client;
   }

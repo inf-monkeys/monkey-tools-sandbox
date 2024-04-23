@@ -55,7 +55,7 @@ export interface Config {
   redis: RedisConfig;
 }
 
-const port = readConfig('server.port', 3001);
+const port = readConfig('server.port', 8001);
 
 export const config: Config = {
   server: {
@@ -92,10 +92,6 @@ const validateConfig = () => {
         'Invalid Config: auth.bearerToken must not empty when auth.type is service_http',
       );
     }
-  }
-
-  if (!config.redis.url) {
-    throw new Error('Invalid Config: redis.url must not empty');
   }
 };
 

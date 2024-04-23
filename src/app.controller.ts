@@ -12,8 +12,8 @@ export class AppController {
   public getManifestJson(): MenifestJson {
     return {
       schema_version: SchemaVersion.v1,
-      display_name: '基础工具',
-      namespace: 'common',
+      display_name: '自定义代码沙箱',
+      namespace: 'sandbox',
       auth: config.server.auth,
       api: {
         type: ApiType.openapi,

@@ -9,7 +9,7 @@ if (process.env.MONKEY_TOOLS_COMMON_CONFIG_FILE) {
   rawConfigs = [path.resolve(process.env.MONKEY_TOOLS_COMMON_CONFIG_FILE)];
 } else {
   rawConfigs = [
-    path.resolve('/etc/monkey-tools-common/config.yaml'),
+    path.resolve('/etc/monkey-tools-sandbox/config.yaml'),
     path.resolve('./config.yaml'),
   ];
 }
