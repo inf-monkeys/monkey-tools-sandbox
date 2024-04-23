@@ -35,7 +35,8 @@ export interface SandboxConfig {
   engine: 'piston';
   piston?: {
     apiServer: string;
-    resultServer: string;
+    runTimeout?: number;
+    compileTimeout?: number;
   };
 }
 
@@ -74,10 +75,8 @@ export const config: Config = {
         'sandbox.piston.apiServer',
         'http://localhost:2000',
       ),
-      resultServer: readConfig(
-        'sandbox.piston.resultServer',
-        `http://localhost:${port}`,
-      ),
+      runTimeout: readConfig('sandbox.piston.runTimeout', 3000),
+      compileTimeout: readConfig('sandbox.piston.compileTimeout', 10000),
     },
   },
   redis: {
@@ -93,6 +92,10 @@ const validateConfig = () => {
         'Invalid Config: auth.bearerToken must not empty when auth.type is service_http',
       );
     }
+  }
+
+  if (!config.redis.url) {
+    throw new Error('Invalid Config: redis.url must not empty');
   }
 };
 

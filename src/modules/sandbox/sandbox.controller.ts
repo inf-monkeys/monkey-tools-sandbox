@@ -7,7 +7,7 @@ import {
   MonkeyToolOutput,
 } from '@/common/decorators/monkey-block-api-extensions.decorator';
 import { AuthGuard } from '@/common/guards/auth.guard';
-import { Body, Controller, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 import { RunSandboxDto } from './dto/req/run-sandbox.req.dto';
 import { RunSandboxRespDto } from './dto/res/run-sandbox.resp.dto';
@@ -17,17 +17,6 @@ import { SandboxService } from './sandbox.service';
 @UseGuards(new AuthGuard())
 export class SandboxController {
   constructor(private readonly sandboxService: SandboxService) {}
-
-  @Post('/result/:taskId')
-  public async collectResult(
-    @Body('result') result: any,
-    @Param('taskId') taskId: string,
-  ) {
-    await this.sandboxService.setResult(taskId, result);
-    return {
-      success: true,
-    };
-  }
 
   @Post('/execute')
   @ApiOperation({
@@ -109,7 +98,6 @@ print(sys.argv[1])`,
       'python',
       sourceCode,
       parameters,
-      3000,
     );
     return result;
   }

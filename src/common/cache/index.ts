@@ -12,41 +12,6 @@ export interface CacheManager {
   lpush(key: string, value: string | Buffer | number): Promise<number>;
 }
 
-export class InMemoryCache implements CacheManager {
-  private storage: { [x: string]: any } = {};
-
-  public isRedis() {
-    return false;
-  }
-
-  public async get(key: string): Promise<string | null> {
-    return this.storage[key];
-  }
-
-  public async set(
-    key: string,
-    value: string | number | Buffer,
-  ): Promise<'OK'> {
-    this.storage[key] = value;
-    return 'OK';
-  }
-
-  public async lpush(
-    key: string,
-    value: string | Buffer | number,
-  ): Promise<number> {
-    if (!this.storage[key]) {
-      this.storage[key] = [];
-    }
-    this.storage[key].push(value);
-    return this.storage[key].length;
-  }
-
-  public subscribe() {
-    throw new Error('Method not implemented.');
-  }
-}
-
 export class RedisCache implements CacheManager {
   redis: Redis;
   constructor(redisUrl: string) {

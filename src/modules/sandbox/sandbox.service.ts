@@ -16,11 +16,6 @@ export class SandboxService {
     return `${config.redis.prefix}sandbox:result:${taskId}`;
   }
 
-  public async setResult(taskId: string, result: string) {
-    const key = this.getResultKey(taskId);
-    await this.cache.set(key, result, 'EX', 3600);
-  }
-
   private async waitForResult(taskId: string, timeoutMs: number) {
     const resultKey = this.getResultKey(taskId);
     const start = Date.now();
@@ -54,8 +49,13 @@ export class SandboxService {
     if ((executResult.data as any)?.message) {
       return [false, (executResult as any).data?.message];
     }
-    if ((executResult.data as any)?.run?.signal === 'SIGKILL') {
-      return [false, (executResult.data as any)?.run?.stderr || 'SIGKILL'];
+    const signal = (executResult.data as any)?.run?.signal;
+    if (signal === 'SIGKILL' || signal === 'SIGSYS' || signal === 'SIGXCPU') {
+      return [false, (executResult.data as any)?.run?.stderr || signal];
+    }
+    const stderr = (executResult.data as any)?.run?.stderr;
+    if (stderr) {
+      return [false, stderr];
     }
     return [true, ''];
   }
@@ -64,7 +64,6 @@ export class SandboxService {
     language: string,
     sourceCode: string,
     parameters?: { [x: string]: any },
-    timeoutMs?: number,
   ) {
     const apiServer = config.sandbox.piston.apiServer;
     if (!apiServer) {
@@ -76,14 +75,12 @@ export class SandboxService {
       ? Object.keys(parameters).map((key) => JSON.stringify(parameters[key]))
       : [];
     const fullCode = `
-import requests
-task_id = "${taskId}"
-collect_result_url = "${config.sandbox.piston.resultServer}/sandbox/result/${taskId}"
+import redis
+import json
 
 def collect_result(result):
-  requests.post(collect_result_url, json={
-    "result": result
-  })
+  r = redis.from_url("${config.redis.url}/0")
+  r.set("${this.getResultKey(taskId)}", json.dumps(result), ex=3600)
 
 def __piston_main():
 ${indentString(sourceCode, 2)}
@@ -102,8 +99,8 @@ collect_result(result)
         },
       ],
       args,
-      run_timeout: timeoutMs,
-      compile_timeout: 10000,
+      run_timeout: config.sandbox.piston.runTimeout,
+      compile_timeout: config.sandbox.piston.compileTimeout,
     });
     logger.info('Execute sandbox result: ', executResult);
     const [success, errmsg] = this.isSuccess(executResult);

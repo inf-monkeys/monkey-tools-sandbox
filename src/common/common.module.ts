@@ -1,6 +1,6 @@
 import { config } from '@/common/config';
 import { Global, Module } from '@nestjs/common';
-import { InMemoryCache, RedisCache } from './cache';
+import { RedisCache } from './cache';
 
 export const CACHE_TOKEN = 'CACHE';
 
@@ -10,9 +10,7 @@ export const CACHE_TOKEN = 'CACHE';
     {
       provide: CACHE_TOKEN,
       useFactory: () => {
-        return config.redis.url
-          ? new RedisCache(config.redis.url)
-          : new InMemoryCache();
+        return new RedisCache(config.redis.url);
       },
     },
   ],
