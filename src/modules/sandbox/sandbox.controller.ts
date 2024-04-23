@@ -7,23 +7,34 @@ import {
   MonkeyToolOutput,
 } from '@/common/decorators/monkey-block-api-extensions.decorator';
 import { AuthGuard } from '@/common/guards/auth.guard';
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 import { RunSandboxDto } from './dto/req/run-sandbox.req.dto';
 import { RunSandboxRespDto } from './dto/res/run-sandbox.resp.dto';
 import { SandboxService } from './sandbox.service';
 
-@Controller('')
+@Controller('/sandbox')
 @UseGuards(new AuthGuard())
 export class SandboxController {
   constructor(private readonly sandboxService: SandboxService) {}
 
-  @Post('/sandbox')
+  @Post('/result/:taskId')
+  public async collectResult(
+    @Body('result') result: any,
+    @Param('taskId') taskId: string,
+  ) {
+    await this.sandboxService.setResult(taskId, result);
+    return {
+      success: true,
+    };
+  }
+
+  @Post('/execute')
   @ApiOperation({
     summary: '自定义代码沙箱',
-    description: '在沙箱中执行 Python 自定义代码',
+    description: '在沙箱中执行自定义代码',
   })
-  @MonkeyToolName('code')
+  @MonkeyToolName('sandbox')
   @MonkeyToolCategories(['extra'])
   @MonkeyToolIcon('emoji:👋:#b291f7')
   @MonkeyToolInput([
@@ -98,14 +109,8 @@ print(sys.argv[1])`,
       'python',
       sourceCode,
       parameters,
+      3000,
     );
-    const { stdout, stderr, output, code, signal } = result.data.run;
-    return {
-      stdout,
-      stderr,
-      output,
-      code,
-      signal,
-    };
+    return result;
   }
 }

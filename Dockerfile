@@ -1,19 +1,6 @@
 # Base image
 FROM node:18-alpine
 
-RUN apk update && \
-    apk add --no-cache \
-    bash \
-    curl \
-    wget \
-    python3 \
-    build-base \
-    g++ \
-    cairo-dev \
-    jpeg-dev \
-    pango-dev \
-    giflib-dev
-
 # Create app directory
 WORKDIR /usr/src/app
 
@@ -27,10 +14,10 @@ RUN yarn
 COPY . .
 
 # Creates a "dist" folder with the production build
-RUN npm run build
+RUN yarn build
 
 # Expose server port
 EXPOSE 3000
 
 # Start the server using the production build
-CMD yarn start:prod
+CMD yarn migration:run; yarn start:prod

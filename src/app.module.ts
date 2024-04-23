@@ -1,23 +1,12 @@
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { CommonModule } from './common/common.module';
 import { CommonMiddleware } from './common/middlewares/common.middleware';
-import { ArrayToStringModule } from './modules/array_to_string/array_to_string.module';
-import { ChatWithBaichuan2Module } from './modules/chat_with_baichuan2/chat_with_baichuan2.module';
-import { ChatgptWithPromptModule } from './modules/chatgpt_with_prompt/chatgpt_with_prompt.module';
-import { CodeModule } from './modules/code/code.module';
-import { DysmsModule } from './modules/dysms/dysms.module';
-import { MidjourneyModule } from './modules/midjourney/midjourney.module';
+import { SandboxModule } from './modules/sandbox/sandbox.module';
 
 @Module({
-  imports: [
-    CodeModule,
-    ArrayToStringModule,
-    ChatWithBaichuan2Module,
-    ChatgptWithPromptModule,
-    DysmsModule,
-    MidjourneyModule,
-  ],
+  imports: [SandboxModule, CommonModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -32,21 +32,26 @@ export interface S3Config {
 }
 
 export interface SandboxConfig {
-  pistonApiUrl: string;
+  engine: 'piston';
+  piston?: {
+    apiServer: string;
+    resultServer: string;
+  };
 }
 
 export interface GoApiConfig {
   apikey: string;
 }
 
+export interface RedisConfig {
+  url: string;
+  prefix: string;
+}
+
 export interface Config {
   server: ServerConfig;
-  baichuan2: Baichuan2Config;
-  openai: OpenAIConfig;
-  credentialEncrypt: CredentialEncryptConfig;
-  s3: S3Config;
   sandbox: SandboxConfig;
-  goapi: GoApiConfig;
+  redis: RedisConfig;
 }
 
 const port = readConfig('server.port', 3001);
@@ -62,15 +67,22 @@ export const config: Config = {
       },
     },
   },
-  baichuan2: readConfig('baichuan2', {}),
-  openai: readConfig('openai', {}),
-  credentialEncrypt: readConfig('credentialEncrypt', {}),
-  s3: readConfig('s3', {}),
-  sandbox: readConfig('sandbox', {
-    pistonApiUrl: 'https://emkc.org',
-  }),
-  goapi: {
-    apikey: readConfig('goapi.apikey', ''),
+  sandbox: {
+    engine: 'piston',
+    piston: {
+      apiServer: readConfig(
+        'sandbox.piston.apiServer',
+        'http://localhost:2000',
+      ),
+      resultServer: readConfig(
+        'sandbox.piston.resultServer',
+        `http://localhost:${port}`,
+      ),
+    },
+  },
+  redis: {
+    url: readConfig('redis.url'),
+    prefix: readConfig('redis.prefix', 'monkeys:'),
   },
 };
 
