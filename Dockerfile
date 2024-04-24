@@ -20,4 +20,4 @@ RUN yarn build
 EXPOSE 3000
 
 # Start the server using the production build
-CMD yarn migration:run; yarn start:prod
+CMD yarn start:prod
