@@ -104,8 +104,6 @@ export class SandboxService {
       };
     } catch (error: any) {
       throw new Error(`执行自定义代码失败：${error.message}`);
-    } finally {
-      console.timeEnd('runInVM');
     }
   }
 

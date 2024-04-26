@@ -111,29 +111,21 @@ return r.text`,
       displayName: 'stdout 输出',
       type: 'string',
     },
-  ])
-  @MonkeyToolOutput([
     {
       name: 'stderr',
       displayName: 'stderr 输出',
       type: 'string',
     },
-  ])
-  @MonkeyToolOutput([
     {
-      name: 'output',
-      displayName: '默认输出',
-      type: 'string',
+      name: 'data',
+      displayName: '返回数据',
+      type: 'json',
     },
-  ])
-  @MonkeyToolOutput([
     {
       name: 'code',
       displayName: '程序退出状态码',
       type: 'number',
     },
-  ])
-  @MonkeyToolOutput([
     {
       name: 'signal',
       displayName: '中断信号',
