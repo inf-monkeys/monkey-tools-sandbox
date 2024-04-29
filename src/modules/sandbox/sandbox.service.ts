@@ -1,6 +1,6 @@
 import { CacheManager } from '@/common/cache';
 import { CACHE_TOKEN } from '@/common/common.module';
-import { config } from '@/common/config';
+import { RedisMode, config } from '@/common/config';
 import { logger } from '@/common/logger';
 import { sleep } from '@/common/utils';
 import { indentString } from '@/common/utils/indent-string';
@@ -82,10 +82,6 @@ export class SandboxService {
     const apiServer = config.sandbox.piston.apiServer;
     if (!apiServer) {
       throw new Error('SandBox piston apiServer is not configured');
-    }
-
-    if (!config.redis.url) {
-      throw new Error('Invalid Config: redis.url must not empty');
     }
     const client = new PistonClient({ server: apiServer });
     return client;
@@ -172,15 +168,51 @@ export class SandboxService {
     const client = this.initPistonClient();
     const taskId = uuid.v4();
 
-    const fullCode = `
+    let redisCode = '';
+    switch (config.redis.mode) {
+      case RedisMode.standalone:
+        redisCode = `
 import redis
 import json
+redis_client = redis.from_url("${config.redis.url}")
 
-context = ${JSON.stringify(parameters)}
+        `;
+        break;
+      case RedisMode.cluster:
+        redisCode = `
+from rediscluster import (
+    RedisCluster,
+    ClusterConnectionPool,
+)
+import json
+startup_nodes = ${JSON.stringify(config.redis.nodes)}
+password = "${config.redis.options.password}"
+pool = ClusterConnectionPool(startup_nodes=startup_nodes, password=password)
+redis_client = RedisCluster(connection_pool=pool)
+        `;
+        break;
+      case RedisMode.sentinel:
+        redisCode = `
+import json
+from redis.sentinel import Sentinel
+sentinel_nodes = ${JSON.stringify(config.redis.sentinels)}
+sentinel_name = "${config.redis.sentinelName}"
+password = "${config.redis.options.password}"
+sentinel_nodes = [(item['host'], int(item['port'])) for item in sentinel_nodes]
+sentinel = Sentinel(sentinel_nodes, password=password)
+redis_client = sentinel.master_for(sentinel_name)`;
+        break;
+      default:
+        break;
+    }
+
+    const fullCode = `
+${redisCode}
 
 def collect_result(result):
-  r = redis.from_url("${config.redis.url}")
-  r.set("${this.getResultKey(taskId)}", json.dumps(result), ex=3600)
+  redis_client.set("${this.getResultKey(taskId)}", json.dumps(result), ex=3600)
+
+context = ${JSON.stringify(parameters)}
 
 def __piston_main():
 ${indentString(sourceCode, 2)}

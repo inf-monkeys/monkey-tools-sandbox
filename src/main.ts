@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import { AppModule } from './app.module';
 import { config } from './common/config';
 import { ExceptionsFilter } from './common/filters/exception.filter';
+import { logger } from './common/logger';
 
 export const setupSwagger = (app: INestApplication) => {
   const builder = new DocumentBuilder()
@@ -47,5 +48,6 @@ async function bootstrap() {
 
   setupSwagger(app);
   await app.listen(config.server.port);
+  logger.info(`Server is running on http://localhost:${config.server.port}`);
 }
 bootstrap();

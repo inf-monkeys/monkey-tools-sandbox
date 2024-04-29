@@ -10,7 +10,7 @@ export const CACHE_TOKEN = 'CACHE';
     {
       provide: CACHE_TOKEN,
       useFactory: () => {
-        return new RedisCache(config.redis.url);
+        return new RedisCache(config.redis);
       },
     },
   ],

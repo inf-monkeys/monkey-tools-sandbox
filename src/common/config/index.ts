@@ -1,3 +1,4 @@
+import { ClusterNode, RedisOptions, SentinelAddress } from 'ioredis';
 import { AuthConfig, AuthType } from '../interfaces';
 import { readConfig } from './readYaml';
 
@@ -44,9 +45,28 @@ export interface GoApiConfig {
   apikey: string;
 }
 
+export enum RedisMode {
+  standalone = 'standalone',
+  cluster = 'cluster',
+  sentinel = 'sentinel',
+}
+
 export interface RedisConfig {
-  url: string;
+  mode: RedisMode;
+
+  // Standalone config
+  url?: string;
+
+  // Cluster config
+  nodes?: ClusterNode[];
+
+  // Sentinel config
+  sentinels?: Array<Partial<SentinelAddress>>;
+  sentinelName?: string;
+
+  // Common config
   prefix: string;
+  options?: RedisOptions;
 }
 
 export interface Config {
@@ -80,8 +100,17 @@ export const config: Config = {
     },
   },
   redis: {
+    mode: readConfig('redis.mode', RedisMode.standalone),
+    // Standalone config
     url: readConfig('redis.url'),
+    // Cluster config
+    nodes: readConfig('redis.nodes', []),
+    // Sentinel config
+    sentinels: readConfig('redis.sentinels', []),
+    sentinelName: readConfig('redis.sentinelName'),
+    // Common config
     prefix: readConfig('redis.prefix', 'monkeys:'),
+    options: readConfig('redis.options', {}),
   },
 };
 
@@ -91,6 +120,19 @@ const validateConfig = () => {
       throw new Error(
         'Invalid Config: auth.bearerToken must not empty when auth.type is service_http',
       );
+    }
+  }
+  if (config.redis.mode === RedisMode.cluster && !config.redis.nodes.length) {
+    throw new Error('Redis cluster mode requires at least one node');
+  }
+  if (config.redis.mode === RedisMode.sentinel) {
+    if (!config.redis.sentinels.length) {
+      throw new Error(
+        'Redis sentinel mode requires at least one sentinel node',
+      );
+    }
+    if (!config.redis.sentinelName) {
+      throw new Error('Redis sentinel mode requires a sentinel name');
     }
   }
 };

@@ -1,4 +1,6 @@
-import Redis from 'ioredis';
+import Redis, { Cluster } from 'ioredis';
+import { RedisConfig } from '../config';
+import { initRedisClient } from '../redis';
 
 export interface CacheManager {
   isRedis: () => boolean;
@@ -13,9 +15,9 @@ export interface CacheManager {
 }
 
 export class RedisCache implements CacheManager {
-  redis: Redis;
-  constructor(redisUrl: string) {
-    this.redis = new Redis(redisUrl);
+  redis: Redis | Cluster;
+  constructor(redisConfig: RedisConfig) {
+    this.redis = initRedisClient(redisConfig);
   }
 
   public isRedis() {
