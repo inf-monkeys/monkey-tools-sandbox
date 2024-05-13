@@ -1,0 +1,4 @@
+node_modules/
+dist/
+tmp-files/
+config.yaml

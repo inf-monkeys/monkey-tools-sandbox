@@ -1,0 +1,10 @@
+sandbox:
+  piston:
+    apiServer: http://localhost:2000
+    runTimeout: 3600000
+    compileTimeout: 3600000
+
+redis:
+  url: redis://localhost:6379
+
+

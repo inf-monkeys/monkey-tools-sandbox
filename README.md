@@ -18,6 +18,8 @@
 - [运行](#运行)
   - [通过源码运行](#通过源码运行)
   - [通过 Docker 运行](#通过-docker-运行)
+    - [只包含 nodejs runtime](#只包含-nodejs-runtime)
+    - [包含 Python runtime](#包含-python-runtime)
 - [配置项](#配置项)
 - [在 Monkeys 平台导入此工具](#在-monkeys-平台导入此工具)
   - [方式一: 通过控制台](#方式一-通过控制台)
@@ -149,8 +151,18 @@
 
 使用下面的命令运行:
 
+#### 只包含 nodejs runtime
+
 ```bash
-docker run --name monkey-tools-sanbox -d -p 8001:8001 -v /path/to/config.yaml:/etc/monkey-tools-sandbox/config.yaml -v /path/to/packages:/piston/packages monkey-tools-sandbox:latest
+docker run --name monkey-tools-sanbox -d -p 8001:8001 infmonkeys/monkey-tools-sandbox:latest
+```
+
+#### 包含 Python runtime
+
+> Python runtime 需要设置 redis 和 piston 地址。
+
+```bash
+docker run --name monkey-tools-sanbox -d -p 8001:8001 -v /path/to/config.yaml:/etc/monkey-tools-sandbox/config.yaml -v /path/to/packages:/piston/packages infmonkeys/monkey-tools-sandbox:latest
 ```
 
 > 如需使用特定版本，你可以从 docker hub 中查询镜像 tag。

@@ -114,6 +114,19 @@ export const config: Config = {
   },
 };
 
+export const isRedisConfigured = () => {
+  if (config.redis.mode === RedisMode.standalone) {
+    return !!config.redis.url;
+  }
+  if (config.redis.mode === RedisMode.cluster) {
+    return !!config.redis.nodes.length;
+  }
+  if (config.redis.mode === RedisMode.sentinel) {
+    return !!config.redis.sentinels.length && !!config.redis.sentinelName;
+  }
+  return false;
+};
+
 const validateConfig = () => {
   if (config.server.auth.type === AuthType.service_http) {
     if (!config.server.auth.verification_tokens['monkeys']) {
