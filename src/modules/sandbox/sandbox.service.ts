@@ -79,7 +79,7 @@ export class SandboxService {
   }
 
   private initPistonClient() {
-    const apiServer = config.sandbox.piston.apiServer;
+    const apiServer = config.piston.apiServer;
     if (!apiServer) {
       throw new Error('SandBox piston apiServer is not configured');
     }
@@ -229,8 +229,8 @@ collect_result(result)
           content: fullCode,
         },
       ],
-      run_timeout: config.sandbox.piston.runTimeout,
-      compile_timeout: config.sandbox.piston.compileTimeout,
+      run_timeout: config.piston.runTimeout,
+      compile_timeout: config.piston.compileTimeout,
     });
     logger.info('Execute sandbox result: ', executResult);
     const [success, errmsg] = this.isSuccess(executResult);

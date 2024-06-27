@@ -1,3 +1,4 @@
+import { config } from '@/common/config';
 import {
   MonkeyToolCategories,
   MonkeyToolExtra,
@@ -12,6 +13,20 @@ import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 import { RunSandboxDto } from './dto/req/run-sandbox.req.dto';
 import { RunSandboxRespDto } from './dto/res/run-sandbox.resp.dto';
 import { Language, SandboxService } from './sandbox.service';
+
+const languageOptions = [
+  {
+    name: Language.Nodejs,
+    value: Language.Nodejs,
+  },
+];
+
+if (config.piston.enabled) {
+  languageOptions.push({
+    name: Language.Python,
+    value: Language.Python,
+  });
+}
 
 @Controller('/sandbox')
 @UseGuards(new AuthGuard())
@@ -32,16 +47,7 @@ export class SandboxController {
       default: 'node-js',
       displayName: '语言',
       type: 'options',
-      options: [
-        {
-          name: Language.Nodejs,
-          value: Language.Nodejs,
-        },
-        {
-          name: Language.Python,
-          value: Language.Python,
-        },
-      ],
+      options: languageOptions,
     },
     {
       name: 'parameters',

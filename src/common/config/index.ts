@@ -32,13 +32,11 @@ export interface S3Config {
   assetsBucketPublicUrl: string;
 }
 
-export interface SandboxConfig {
-  engine: 'piston';
-  piston?: {
-    apiServer: string;
-    runTimeout?: number;
-    compileTimeout?: number;
-  };
+export interface PistonConfig {
+  enabled: boolean;
+  apiServer: string;
+  runTimeout?: number;
+  compileTimeout?: number;
 }
 
 export interface GoApiConfig {
@@ -71,7 +69,7 @@ export interface RedisConfig {
 
 export interface Config {
   server: ServerConfig;
-  sandbox: SandboxConfig;
+  piston: PistonConfig;
   redis: RedisConfig;
 }
 
@@ -88,16 +86,11 @@ export const config: Config = {
       },
     },
   },
-  sandbox: {
-    engine: 'piston',
-    piston: {
-      apiServer: readConfig(
-        'sandbox.piston.apiServer',
-        'http://localhost:2000',
-      ),
-      runTimeout: readConfig('sandbox.piston.runTimeout', 3000),
-      compileTimeout: readConfig('sandbox.piston.compileTimeout', 10000),
-    },
+  piston: {
+    enabled: readConfig('piston.enabled', false),
+    apiServer: readConfig('piston.apiServer', 'http://localhost:2000'),
+    runTimeout: readConfig('piston.runTimeout', 3000),
+    compileTimeout: readConfig('piston.compileTimeout', 10000),
   },
   redis: {
     mode: readConfig('redis.mode', RedisMode.standalone),
@@ -147,6 +140,10 @@ const validateConfig = () => {
     if (!config.redis.sentinelName) {
       throw new Error('Redis sentinel mode requires a sentinel name');
     }
+  }
+
+  if (config.piston.enabled && !isRedisConfigured()) {
+    throw new Error('Piston requires Redis to be configured');
   }
 };
 
