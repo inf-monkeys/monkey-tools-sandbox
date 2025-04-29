@@ -94,6 +94,7 @@ export class SandboxService {
     try {
       const data = await safifyVm.run(sourceCode, {
         $: parameters,
+        delay: (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
       });
       return {
         data,
