@@ -4,8 +4,8 @@ import { ISafeifyOptions } from 'safeify/lib/ISafeifyOptions';
 export const avaliableModules = ['axios', 'lodash'];
 
 export const safeifyOptions: ISafeifyOptions = {
-  timeout: 20000,
-  asyncTimeout: 60000,
+  timeout: 30 * 60 * 1000,
+  asyncTimeout: 30 * 60 * 1000,
   unrestricted: true,
   unsafe: {
     require: true,
